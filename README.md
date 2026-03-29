@@ -1,16 +1,66 @@
-# React + Vite
+# 🎬 PickaFlick
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A mood-based movie recommender web app. Describe how you're feeling in plain English and get 5 personalized movie recommendations powered by Gemini AI — complete with posters, ratings, cast, director, and streaming availability.
 
-Currently, two official plugins are available:
+**Live Demo:** https://yourgithubusername.github.io/pickaflick
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Natural language mood input
+- AI-powered recommendations via Gemini 2.5 Flash
+- Movie posters, ratings and details from TMDB
+- Cast, director and where to watch info
+- Search history saved locally
+- Fully responsive — works on mobile and desktop
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ReactJS + Vite
+- Gemini AI API (Google)
+- TMDB API
+- GitHub Pages (deployment)
+- Vanilla CSS
+
+## Getting Started
+
+1. Clone the repo
+
+```bash
+   git clone https://github.com/yourusername/pickaflick.git
+   cd pickaflick
+```
+
+2. Install dependencies
+
+```bash
+   npm install
+```
+
+3. Create a `.env` file in the root:
+
+```
+   VITE_GEMINI_API_KEY=your_gemini_key
+   VITE_TMDB_API_KEY=your_tmdb_key
+```
+
+4. Run locally
+
+```bash
+   npm run dev
+```
+
+5. Deploy
+
+```bash
+   npm run deploy
+```
+
+## Screenshots
+
+> Add screenshots here
+
+---
+
+Built by Laksh • Powered by Gemini AI + TMDB
