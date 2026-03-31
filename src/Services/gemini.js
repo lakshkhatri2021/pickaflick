@@ -27,6 +27,7 @@ export async function getMoviesForMood(mood) {
   console.log("Gemini raw response:", JSON.stringify(data));
   
   const text = data.candidates[0].content.parts[0].text;
-  const cleaned = text.replace(/```json|```/g, "").trim();
-  return JSON.parse(cleaned);
+const cleaned = text.replace(/```json|```/g, "").trim();
+const jsonMatch = cleaned.match(/\[[\s\S]*\]/);
+return JSON.parse(jsonMatch[0]);
 }
