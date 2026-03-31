@@ -57,10 +57,4 @@ A mood-based movie recommender web app. Describe how you're feeling in plain Eng
    npm run deploy
 ```
 
-## Screenshots
-
-> Add screenshots here
-
----
-
 Built by Laksh • Powered by Gemini AI + TMDB
