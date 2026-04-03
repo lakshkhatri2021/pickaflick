@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 const MOOD_SUGGESTIONS = [
-  "😢 Sad", "😂 Funny", "😤 Stressed", "🥰 Romantic",
-  "😱 Thrilling", "🤔 Thoughtful", "😴 Lazy", "🔥 Hyped"
+  "Sad", "Funny", "Stressed", "Romantic",
+  "Thrilling", "Thoughtful", "Lazy", "Hyped"
 ];
 
 const PLACEHOLDERS = [
@@ -49,9 +49,8 @@ function MoodInput({ onSubmit, loading, history, onClearHistory }) {
   }
 
   function handleChipClick(chip) {
-    const text = chip.replace(/^\S+\s/, "");
-    setInputValue(text);
-  }
+  setInputValue(chip);
+}
 
   return (
     <div className="mood-input-container">
