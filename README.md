@@ -28,7 +28,7 @@ A mood-based movie recommender web app. Describe how you're feeling in plain Eng
 1. Clone the repo
 
 ```bash
-   git clone https://github.com/yourusername/pickaflick.git
+   git clone https://github.com/lakshkhatri2021/pickaflick.git
    cd pickaflick
 ```
 
