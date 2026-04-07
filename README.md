@@ -2,7 +2,7 @@
 
 A mood-based movie recommender web app. Describe how you're feeling in plain English and get 5 personalized movie recommendations powered by Gemini AI — complete with posters, ratings, cast, director, and streaming availability.
 
-**Live Demo:** https://yourgithubusername.github.io/pickaflick
+**Live Demo:** https://lakshkhatri2021.github.io/pickaflick
 
 ---
 
