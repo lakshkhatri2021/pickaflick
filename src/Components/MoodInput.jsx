@@ -14,7 +14,7 @@ const PLACEHOLDERS = [
   "I want a movie that'll make me think..."
 ];
 
-function MoodInput({ onSubmit, loading, history, onClearHistory }) {
+function MoodInput({ onSubmit, loading }) {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -49,14 +49,14 @@ function MoodInput({ onSubmit, loading, history, onClearHistory }) {
   }
 
   function handleChipClick(chip) {
-  setInputValue(chip);
-}
+    setInputValue(chip);
+  }
 
   return (
     <div className="mood-input-container">
       <h1 className="app-title">PickaFlick</h1>
       <p className="app-subtitle">Describe your mood and we'll find the perfect movie for you</p>
-      <p className="app-stats">Powered by Gemini AI · 5 recommendations per mood</p>
+      <p className="app-stats">Powered by Gemini AI · 10 recommendations per mood</p>
       <form onSubmit={handleSubmit} className="mood-form">
         <input
           type="text"
@@ -82,27 +82,6 @@ function MoodInput({ onSubmit, loading, history, onClearHistory }) {
           </button>
         ))}
       </div>
-
-      {history.length > 0 && (
-        <div className="search-history">
-          <div className="history-header">
-            <span className="history-label">Recent searches</span>
-            <button className="history-clear" onClick={onClearHistory}>Clear</button>
-          </div>
-          <div className="history-chips">
-            {history.map((item, i) => (
-              <button
-                key={i}
-                className="history-chip"
-                onClick={() => { setInputValue(item); onSubmit(item); }}
-                disabled={loading}
-              >
-                🕐 {item}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

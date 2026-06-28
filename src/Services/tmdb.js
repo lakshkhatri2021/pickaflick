@@ -1,21 +1,44 @@
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL = "https://api.tmdb.org/3";
 const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 const IMG_SMALL = "https://image.tmdb.org/t/p/w185";
 
 export async function getMovieDetails(title, year) {
-  const searchRes = await fetch(
-    `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}&year=${year}`
-  );
-  const searchData = await searchRes.json();
-  if (!searchData.results || searchData.results.length === 0) return null;
-  const movie = searchData.results[0];
-  return {
-    title: movie.title,
-    rating: movie.vote_average ? movie.vote_average.toFixed(1) : "N/A",
-    poster: movie.poster_path ? `${IMG_BASE}${movie.poster_path}` : null,
-    id: movie.id,
-  };
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+
+    const searchRes = await fetch(
+      `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}&year=${year}`,
+      { signal: controller.signal }
+    );
+    clearTimeout(timeout);
+
+    const searchData = await searchRes.json();
+    if (!searchData.results || searchData.results.length === 0) return null;
+    const movie = searchData.results[0];
+
+    const providerController = new AbortController();
+    const providerTimeout = setTimeout(() => providerController.abort(), 3000);
+    const providerRes = await fetch(
+      `${BASE_URL}/movie/${movie.id}/watch/providers?api_key=${TMDB_API_KEY}`,
+      { signal: providerController.signal }
+    );
+    clearTimeout(providerTimeout);
+    const providerData = await providerRes.json();
+    const watchProviders = providerData.results?.IN?.flatrate ||
+      providerData.results?.US?.flatrate || [];
+
+    return {
+      title: movie.title,
+      rating: movie.vote_average ? movie.vote_average.toFixed(1) : "N/A",
+      poster: movie.poster_path ? `${IMG_BASE}${movie.poster_path}` : null,
+      id: movie.id,
+      watchProviders,
+    };
+  } catch {
+    return null;
+  }
 }
 
 export async function getMovieExtras(id) {
@@ -48,4 +71,21 @@ export async function getMovieExtras(id) {
     cast,
     watchProviders,
   };
+}
+
+export async function getMovieDetailsBatch(movies) {
+  const results = [];
+  const batchSize = 3;
+  
+  for (let i = 0; i < movies.length; i += batchSize) {
+    const batch = movies.slice(i, i + batchSize);
+    const batchResults = await Promise.allSettled(
+      batch.map((m) => getMovieDetails(m.title, m.year))
+    );
+    results.push(...batchResults);
+    if (i + batchSize < movies.length) {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    }
+  }
+  return results;
 }
